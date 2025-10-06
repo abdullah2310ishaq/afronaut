@@ -545,3 +545,7 @@ export const createMockApiError = (message: string, delay: number = 500): Promis
     setTimeout(() => reject(new Error(message)), delay)
   })
 }
+
+// Mock authentication password for demo purposes
+// Demo password for all accounts (same as auth-store)
+export const MOCK_PASSWORD = "password123"

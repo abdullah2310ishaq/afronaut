@@ -42,7 +42,7 @@ export default function EventDetailPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header user={{ name: "Guest", role: "user" }} />
+      <Header />
 
       <div className="container px-4 py-8 space-y-8">
         <Button variant="ghost" onClick={() => router.back()} className="gap-2">
@@ -67,13 +67,13 @@ export default function EventDetailPage() {
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-primary" />
                   <span>
-                    {new Date(event.date).toLocaleDateString("en-US", {
+                    {new Date(event.startDate).toLocaleDateString("en-US", {
                       weekday: "long",
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}{" "}
-                    • {event.time}
+                    • {new Date(event.startDate).toLocaleTimeString()}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -85,7 +85,7 @@ export default function EventDetailPage() {
                 <div className="flex items-center gap-2">
                   <Users className="h-4 w-4 text-primary" />
                   <span>
-                    {event.soldTickets.toLocaleString()} / {event.totalCapacity.toLocaleString()} tickets sold
+                    {event.categories.reduce((sum, cat) => sum + cat.soldTickets, 0).toLocaleString()} / {event.categories.reduce((sum, cat) => sum + cat.totalTickets, 0).toLocaleString()} tickets sold
                   </span>
                 </div>
               </div>
@@ -109,14 +109,14 @@ export default function EventDetailPage() {
                           <div className="flex-1">
                             <h3 className="font-semibold">{category.name}</h3>
                             <p className="text-sm text-muted-foreground">
-                              {category.available} of {category.maxCapacity} available
+                              {category.availableTickets} of {category.totalTickets} available
                             </p>
                           </div>
 
                           <div className="flex items-center gap-4">
                             <p className="text-lg font-bold">${category.price.toFixed(2)}</p>
 
-                            {category.available > 0 ? (
+                            {category.availableTickets > 0 ? (
                               <div className="flex items-center gap-2">
                                 <Button
                                   size="icon"
@@ -133,7 +133,7 @@ export default function EventDetailPage() {
                                   size="icon"
                                   variant="outline"
                                   onClick={() => updateQuantity(category.id, 1)}
-                                  disabled={(selectedCategories[category.id] || 0) >= Math.min(10, category.available)}
+                                  disabled={(selectedCategories[category.id] || 0) >= Math.min(10, category.availableTickets)}
                                 >
                                   <Plus className="h-4 w-4" />
                                 </Button>

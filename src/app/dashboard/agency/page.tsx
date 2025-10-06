@@ -35,8 +35,8 @@ export default function AgencyDashboard() {
   }
 
   const agencyEvents = mockEvents.filter((e) => e.agencyId === user.id)
-  const totalRevenue = agencyEvents.reduce((sum, e) => sum + e.soldTickets * 150, 0)
-  const totalSold = agencyEvents.reduce((sum, e) => sum + e.soldTickets, 0)
+  const totalRevenue = agencyEvents.reduce((sum, e) => sum + e.totalRevenue, 0)
+  const totalSold = agencyEvents.reduce((sum, e) => sum + e.categories.reduce((catSum, cat) => catSum + cat.soldTickets, 0), 0)
 
   return (
     <div className="min-h-screen bg-black pt-20 pb-12">
@@ -137,21 +137,21 @@ export default function AgencyDashboard() {
                           </Badge>
                         </div>
                         <p className="text-sm text-gray-400 mb-3">
-                          {event.date} • {event.time} • {event.venue}
+                          {new Date(event.startDate).toLocaleDateString()} • {new Date(event.startDate).toLocaleTimeString()} • {event.venue}
                         </p>
 
                         <div className="flex items-center gap-6">
                           <div>
-                            <p className="text-2xl font-bold text-white">{event.soldTickets}</p>
+                            <p className="text-2xl font-bold text-white">{event.categories.reduce((sum, cat) => sum + cat.soldTickets, 0)}</p>
                             <p className="text-xs text-gray-400">Tickets Sold</p>
                           </div>
                           <div>
-                            <p className="text-2xl font-bold text-gray-400">{event.totalCapacity}</p>
+                            <p className="text-2xl font-bold text-gray-400">{event.categories.reduce((sum, cat) => sum + cat.totalTickets, 0)}</p>
                             <p className="text-xs text-gray-400">Total Capacity</p>
                           </div>
                           <div>
                             <p className="text-2xl font-bold text-green-400">
-                              {((event.soldTickets / event.totalCapacity) * 100).toFixed(0)}%
+                              {((event.categories.reduce((sum, cat) => sum + cat.soldTickets, 0) / event.categories.reduce((sum, cat) => sum + cat.totalTickets, 0)) * 100).toFixed(0)}%
                             </p>
                             <p className="text-xs text-gray-400">Sold</p>
                           </div>

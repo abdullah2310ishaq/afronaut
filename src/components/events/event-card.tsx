@@ -23,8 +23,10 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
   const { isFavorite, toggleFavorite } = useFavoritesStore()
   const favorited = isFavorite(event.id)
 
-  const availableTickets = event.totalCapacity - event.soldTickets
-  const percentageSold = (event.soldTickets / event.totalCapacity) * 100
+  const soldTickets = event.categories.reduce((sum, cat) => sum + cat.soldTickets, 0)
+  const totalCapacity = event.categories.reduce((sum, cat) => sum + cat.totalTickets, 0)
+  const availableTickets = totalCapacity - soldTickets
+  const percentageSold = (soldTickets / totalCapacity) * 100
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -100,13 +102,13 @@ export function EventCard({ event, index = 0 }: EventCardProps) {
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-primary" />
               <span>
-                {new Date(event.date).toLocaleDateString("en-US", {
+                {new Date(event.startDate).toLocaleDateString("en-US", {
                   weekday: "short",
                   year: "numeric",
                   month: "short",
                   day: "numeric",
                 })}{" "}
-                • {event.time}
+                • {new Date(event.startDate).toLocaleTimeString()}
               </span>
             </div>
             <div className="flex items-center gap-2">

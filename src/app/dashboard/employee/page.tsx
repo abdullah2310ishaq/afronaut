@@ -181,14 +181,14 @@ export default function EmployeeDashboard() {
                       <h3 className="text-lg font-semibold text-white">{event.title}</h3>
                       <Badge className="bg-green-500/20 text-green-400 border-green-500/50">{event.status}</Badge>
                     </div>
-                    <p className="text-sm text-gray-400">
-                      {event.date} • {event.time}
+                    <p className="text-sm text-gray-400 mb-2">
+                      {new Date(event.startDate).toLocaleDateString()} • {new Date(event.startDate).toLocaleTimeString()}
                     </p>
                     <p className="text-sm text-gray-500">{event.venue}</p>
                   </div>
 
                   <div className="text-center mr-4">
-                    <p className="text-2xl font-bold text-white">{event.soldTickets}</p>
+                    <p className="text-2xl font-bold text-white">{event.categories.reduce((sum, cat) => sum + cat.soldTickets, 0)}</p>
                     <p className="text-xs text-gray-400">Expected Attendees</p>
                   </div>
                 </div>

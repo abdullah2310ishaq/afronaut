@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Calendar, MapPin, QrCode, Sparkles } from "lucide-react"
+import { Calendar, MapPin, QrCode, Sparkles, Send } from "lucide-react"
 import type { Ticket } from "@/lib/mock-data"
 
 interface TicketCardProps {
@@ -15,20 +15,25 @@ interface TicketCardProps {
 
 export function TicketCard({ ticket, index = 0 }: TicketCardProps) {
   const statusConfig = {
-    valid: {
-      color: "border-primary/30 bg-primary/20 text-primary",
+    active: {
+      color: "border-green-500/30 bg-green-500/20 text-green-400",
       icon: Sparkles,
-      label: "Valid",
+      label: "Active",
     },
     used: {
       color: "border-zinc-700 bg-zinc-800/50 text-zinc-400",
       icon: null,
       label: "Used",
     },
-    transferred: {
-      color: "border-blue-500/30 bg-blue-500/20 text-blue-400",
+    expired: {
+      color: "border-red-500/30 bg-red-500/20 text-red-400",
       icon: null,
-      label: "Transferred",
+      label: "Expired",
+    },
+    cancelled: {
+      color: "border-red-500/30 bg-red-500/20 text-red-400",
+      icon: null,
+      label: "Cancelled",
     },
   }
 
@@ -60,7 +65,7 @@ export function TicketCard({ ticket, index = 0 }: TicketCardProps) {
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1">
                 <h3 className="line-clamp-1 text-lg font-bold text-white">{ticket.eventTitle}</h3>
-                <p className="mt-1 text-sm font-medium text-primary">{ticket.category}</p>
+                <p className="mt-1 text-sm font-medium text-primary">{ticket.categoryName}</p>
               </div>
               <Badge className={`${config.color} flex items-center gap-1`}>
                 {config.icon && <config.icon className="h-3 w-3" />}
@@ -82,7 +87,7 @@ export function TicketCard({ ticket, index = 0 }: TicketCardProps) {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-primary" />
-                <span>{ticket.eventVenue}</span>
+                <span>{ticket.venue}</span>
               </div>
             </div>
 
@@ -92,13 +97,21 @@ export function TicketCard({ ticket, index = 0 }: TicketCardProps) {
                 <p className="text-2xl font-bold text-white">${ticket.price.toFixed(2)}</p>
               </div>
 
-              {ticket.status === "valid" && (
-                <Button asChild size="lg" className="gap-2">
-                  <Link href={`/tickets/${ticket.id}`}>
-                    <QrCode className="h-4 w-4" />
-                    View QR
-                  </Link>
-                </Button>
+              {ticket.status === "active" && (
+                <div className="flex gap-2">
+                  <Button asChild size="sm" variant="outline" className="border-zinc-700 hover:border-blue-500">
+                    <Link href={`/tickets/${ticket.id}/transfer`}>
+                      <Send className="h-4 w-4 mr-1" />
+                      Transfer
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" className="gap-2 bg-green-600 hover:bg-green-700">
+                    <Link href={`/tickets/${ticket.id}`}>
+                      <QrCode className="h-4 w-4" />
+                      Manage
+                    </Link>
+                  </Button>
+                </div>
               )}
             </div>
           </CardContent>

@@ -48,13 +48,15 @@ export default function EventsPage() {
     // Sort
     filtered.sort((a, b) => {
       if (sortBy === "date") {
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
+        return new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
       } else if (sortBy === "price") {
         const aMin = Math.min(...a.categories.map((c) => c.price))
         const bMin = Math.min(...b.categories.map((c) => c.price))
         return aMin - bMin
       } else if (sortBy === "popularity") {
-        return b.soldTickets - a.soldTickets
+        const aSold = a.categories.reduce((sum, cat) => sum + cat.soldTickets, 0)
+        const bSold = b.categories.reduce((sum, cat) => sum + cat.soldTickets, 0)
+        return bSold - aSold
       }
       return 0
     })
