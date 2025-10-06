@@ -1,0 +1,196 @@
+[
+  {
+    "id": "user-001",
+    "name": "Jane Doe",
+    "email": "user@afronaut.com",
+    "role": "user",
+    "avatar": "/placeholder-user.jpg",
+    "phone": "+1-555-0123",
+    "location": "New York, NY",
+    "dateJoined": "2024-06-15T10:00:00Z",
+    "isVerified": true,
+    "preferences": {
+      "notifications": {
+        "email": true,
+        "sms": false,
+        "push": true
+      },
+      "privacy": {
+        "profileVisibility": "public",
+        "activitySharing": false
+      },
+      "interests": ["music", "technology", "food"]
+    },
+    "stats": {
+      "eventsAttended": 12,
+      "totalSpent": 1245.67,
+      "favoriteEvents": 8,
+      "reviewsGiven": 5
+    }
+  },
+  {
+    "id": "user-002",
+    "name": "John Smith",
+    "email": "john.smith@email.com",
+    "role": "user",
+    "avatar": "/placeholder-user.jpg",
+    "phone": "+1-555-0456",
+    "location": "Austin, TX",
+    "dateJoined": "2024-08-20T14:30:00Z",
+    "isVerified": true,
+    "preferences": {
+      "notifications": {
+        "email": true,
+        "sms": true,
+        "push": false
+      },
+      "privacy": {
+        "profileVisibility": "friends",
+        "activitySharing": true
+      },
+      "interests": ["rock", "concerts", "festivals"]
+    },
+    "stats": {
+      "eventsAttended": 8,
+      "totalSpent": 567.89,
+      "favoriteEvents": 3,
+      "reviewsGiven": 2
+    }
+  },
+  {
+    "id": "admin-001",
+    "name": "Admin User",
+    "email": "admin@afronaut.com",
+    "role": "admin",
+    "avatar": "/placeholder-user.jpg",
+    "phone": "+1-555-0001",
+    "location": "San Francisco, CA",
+    "dateJoined": "2024-01-01T00:00:00Z",
+    "isVerified": true,
+    "permissions": ["full_access", "user_management", "agency_management", "system_settings"],
+    "stats": {
+      "agenciesManaged": 15,
+      "totalRevenue": 2450000.00,
+      "usersManaged": 12500,
+      "eventsOverseen": 234
+    }
+  },
+  {
+    "id": "agency-001",
+    "name": "Event Masters",
+    "email": "agency@afronaut.com",
+    "role": "agency",
+    "avatar": "/placeholder-logo.png",
+    "phone": "+1-555-1001",
+    "location": "New York, NY",
+    "dateJoined": "2024-02-15T10:00:00Z",
+    "isVerified": true,
+    "companyInfo": {
+      "companyName": "Event Masters LLC",
+      "businessLicense": "BL-123456789",
+      "taxId": "TAX-987654321",
+      "website": "https://eventmasters.com",
+      "description": "Premier event management company specializing in large-scale festivals and corporate events."
+    },
+    "stats": {
+      "eventsCreated": 25,
+      "totalRevenue": 456789.23,
+      "activeEvents": 8,
+      "employeesManaged": 12
+    },
+    "employees": [
+      {
+        "id": "emp-001",
+        "name": "John Scanner",
+        "email": "employee@afronaut.com",
+        "role": "employee",
+        "position": "Ticket Scanner",
+        "assignedEvents": ["evt-001", "evt-003"],
+        "scansCount": 1250,
+        "dateHired": "2024-03-01T10:00:00Z"
+      },
+      {
+        "id": "emp-002",
+        "name": "Sarah Validator",
+        "email": "sarah.validator@eventmasters.com",
+        "role": "employee",
+        "position": "Event Coordinator",
+        "assignedEvents": ["evt-001"],
+        "scansCount": 890,
+        "dateHired": "2024-02-20T10:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "agency-002",
+    "name": "Tech Events Pro",
+    "email": "contact@techevents.pro",
+    "role": "agency",
+    "avatar": "/placeholder-logo.png",
+    "phone": "+1-555-2002",
+    "location": "San Francisco, CA",
+    "dateJoined": "2024-03-10T12:00:00Z",
+    "isVerified": true,
+    "companyInfo": {
+      "companyName": "Tech Events Pro Inc.",
+      "businessLicense": "BL-987654321",
+      "taxId": "TAX-123456789",
+      "website": "https://techevents.pro",
+      "description": "Specialized in technology conferences, hackathons, and professional development events."
+    },
+    "stats": {
+      "eventsCreated": 18,
+      "totalRevenue": 234567.89,
+      "activeEvents": 5,
+      "employeesManaged": 8
+    },
+    "employees": [
+      {
+        "id": "emp-003",
+        "name": "Mike Tech",
+        "email": "mike.tech@techevents.pro",
+        "role": "employee",
+        "position": "Tech Support",
+        "assignedEvents": ["evt-002", "evt-005"],
+        "scansCount": 567,
+        "dateHired": "2024-04-01T10:00:00Z"
+      }
+    ]
+  },
+  {
+    "id": "agency-003",
+    "name": "Rock Promotions",
+    "email": "info@rockpromotions.com",
+    "role": "agency",
+    "avatar": "/placeholder-logo.png",
+    "phone": "+1-555-3003",
+    "location": "Austin, TX",
+    "dateJoined": "2024-04-20T15:00:00Z",
+    "isVerified": false,
+    "companyInfo": {
+      "companyName": "Rock Promotions LLC",
+      "businessLicense": "BL-456789123",
+      "taxId": "TAX-321654987",
+      "website": "https://rockpromotions.com",
+      "description": "Music venue promotions and concert organization for rock, metal, and alternative artists."
+    },
+    "stats": {
+      "eventsCreated": 12,
+      "totalRevenue": 87432.18,
+      "activeEvents": 3,
+      "employeesManaged": 5
+    },
+    "employees": [
+      {
+        "id": "emp-004",
+        "name": "Lisa Rock",
+        "email": "lisa.rock@rockpromotions.com",
+        "role": "employee",
+        "position": "Venue Manager",
+        "assignedEvents": ["evt-004"],
+        "scansCount": 234,
+        "dateHired": "2024-05-01T10:00:00Z"
+      }
+    ]
+  }
+]

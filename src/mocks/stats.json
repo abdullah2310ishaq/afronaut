@@ -1,0 +1,97 @@
+[
+  {
+    "id": "stats-001",
+    "type": "platform_overview",
+    "generatedAt": "2025-10-06T12:00:00Z",
+    "totalUsers": 12500,
+    "totalAgencies": 15,
+    "totalEvents": 234,
+    "totalTicketsSold": 45678,
+    "totalRevenue": 2450000.00,
+    "activeEvents": 25,
+    "upcomingEvents": 18,
+    "pendingApprovals": 3,
+    "monthlyGrowth": {
+      "users": 12.5,
+      "revenue": 18.7,
+      "events": 8.3,
+      "agencies": 6.7
+    },
+    "topCategories": [
+      {
+        "name": "Music",
+        "count": 89,
+        "revenue": 890000.00,
+        "percentage": 36.3
+      },
+      {
+        "name": "Technology",
+        "count": 45,
+        "revenue": 567000.00,
+        "percentage": 23.1
+      },
+      {
+        "name": "Food & Drink",
+        "count": 34,
+        "revenue": 234000.00,
+        "percentage": 9.5
+      },
+      {
+        "name": "Business",
+        "count": 28,
+        "revenue": 456000.00,
+        "percentage": 18.6
+      },
+      {
+        "name": "Sports",
+        "count": 22,
+        "revenue": 178000.00,
+        "percentage": 7.3
+      },
+      {
+        "name": "Arts & Culture",
+        "count": 16,
+        "revenue": 125000.00,
+        "percentage": 5.1
+      }
+    ],
+    "recentActivity": [
+      {
+        "id": "activity-001",
+        "type": "new_event",
+        "message": "Summer Music Festival 2025 created by Event Masters",
+        "timestamp": "2025-10-06T10:30:00Z",
+        "eventId": "evt-001",
+        "agencyId": "agency-001"
+      },
+      {
+        "id": "activity-002",
+        "type": "ticket_sale",
+        "message": "1,250 tickets sold for Tech Conference 2025",
+        "timestamp": "2025-10-06T09:15:00Z",
+        "eventId": "evt-002",
+        "revenue": 562475.00
+      },
+      {
+        "id": "activity-003",
+        "type": "agency_approved",
+        "message": "Rock Promotions agency approved and activated",
+        "timestamp": "2025-10-05T16:45:00Z",
+        "agencyId": "agency-003"
+      },
+      {
+        "id": "activity-004",
+        "type": "user_milestone",
+        "message": "Platform reached 12,500 registered users",
+        "timestamp": "2025-10-05T14:20:00Z",
+        "milestone": "12500_users"
+      }
+    ],
+    "platformHealth": {
+      "uptime": 99.97,
+      "responseTime": 145,
+      "errorRate": 0.03,
+      "activeConnections": 1847
+    }
+  }
+]
