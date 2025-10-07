@@ -106,7 +106,7 @@ export function getImageUrl(path: string): string {
 }
 
 // Local storage utilities
-export function getFromStorage(key: string): any {
+export function getFromStorage(key: string): unknown {
   if (typeof window === 'undefined') return null
   
   try {
@@ -118,7 +118,7 @@ export function getFromStorage(key: string): any {
   }
 }
 
-export function setToStorage(key: string, value: any): void {
+export function setToStorage(key: string, value: unknown): void {
   if (typeof window === 'undefined') return
   
   try {

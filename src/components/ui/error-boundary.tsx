@@ -91,7 +91,6 @@ export class ErrorBoundary extends Component<Props, State> {
 
 // Hook-based error boundary for functional components
 export function ErrorFallback({ 
-  error, 
   resetErrorBoundary 
 }: { 
   error: Error

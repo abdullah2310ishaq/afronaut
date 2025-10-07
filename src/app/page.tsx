@@ -154,7 +154,7 @@ export default function HomePage() {
           >
             <div>
               <h2 className="text-4xl font-bold text-white">Featured Events</h2>
-              <p className="mt-3 text-lg text-zinc-400">Don't miss out on these popular events</p>
+              <p className="mt-3 text-lg text-zinc-400">Don&apos;t miss out on these popular events</p>
             </div>
             <Button variant="ghost" asChild className="group gap-2 text-primary hover:text-primary">
               <Link href="/events">

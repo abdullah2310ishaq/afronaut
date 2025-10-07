@@ -218,7 +218,7 @@ export function GlobalSearch({
                   </>
                 ) : (
                   <div className="px-3 py-8 text-center text-muted-foreground">
-                    No results found for "{query}"
+                    No results found for &quot;{query}&quot;
                   </div>
                 )}
               </div>

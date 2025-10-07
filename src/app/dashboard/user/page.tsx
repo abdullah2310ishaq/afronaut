@@ -16,10 +16,10 @@ export default function UserDashboard() {
   const router = useRouter()
 
   useEffect(() => {
-    if (isAuthenticated === false || (isAuthenticated && user && user.role !== "user")) {
+    if (!isAuthenticated || user?.role !== "user") {
       router.push("/login")
     }
-  }, [isAuthenticated, user?.role, router])
+  }, [isAuthenticated, user, router])
 
   if (isAuthenticated === false || (isAuthenticated && user && user.role !== "user")) {
     return null
@@ -32,7 +32,7 @@ export default function UserDashboard() {
       </div>
     )
   }
-  const upcomingTickets = mockTickets.filter((t) => t.status === "valid")
+  const upcomingTickets = mockTickets.filter((t) => t.status === "active")
   const upcomingEvents = mockEvents.filter((e) => e.status === "active").slice(0, 3)
 
   return (
@@ -43,7 +43,7 @@ export default function UserDashboard() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold">Welcome back, {user.name}!</h1>
-            <p className="text-muted-foreground mt-2">Here's what's happening with your events</p>
+            <p className="text-muted-foreground mt-2">Here&apos;s what&apos;s happening with your events</p>
           </div>
           <Button
             variant="outline"

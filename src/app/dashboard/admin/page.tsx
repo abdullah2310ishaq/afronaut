@@ -22,7 +22,7 @@ export default function AdminDashboard() {
     if (isAuthenticated === false || (isAuthenticated && user && user.role !== "admin")) {
       router.push("/login")
     }
-  }, [isAuthenticated, user?.role, router])
+  }, [isAuthenticated, user, router])
 
   if (isAuthenticated === false || (isAuthenticated && user && user.role !== "admin")) {
     return null

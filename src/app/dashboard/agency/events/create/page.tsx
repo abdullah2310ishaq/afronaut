@@ -7,13 +7,11 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
 import { useAuthStore } from "@/stores/auth-store"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
 import { useEffect, useState } from "react"
-import { ArrowLeft, ArrowRight, Check, Plus, Trash2, Upload, Calendar, MapPin, Users, Tag, AlertTriangle, Camera, X } from "lucide-react"
+import { ArrowLeft, ArrowRight, Check, Plus, Trash2, Upload, Calendar, MapPin, Users, AlertTriangle, Camera, X } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
 interface Category {
@@ -60,14 +58,6 @@ export default function CreateEvent() {
 
   if (!isAuthenticated || user?.role !== "agency") {
     return null
-  }
-
-  const handleNext = () => {
-    if (step < 4) setStep(step + 1)
-  }
-
-  const handleBack = () => {
-    if (step > 1) setStep(step - 1)
   }
 
   const handleAddCategory = () => {

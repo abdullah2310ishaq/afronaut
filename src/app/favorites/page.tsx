@@ -39,7 +39,7 @@ export default function FavoritesPage() {
           </div>
           <div>
             <h1 className="text-4xl font-bold">My Favorites</h1>
-            <p className="text-muted-foreground">Events you've saved for later</p>
+            <p className="text-muted-foreground">Events you&apos;ve saved for later</p>
           </div>
         </div>
 

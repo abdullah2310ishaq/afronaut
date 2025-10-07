@@ -65,7 +65,7 @@ export default function TransferTicket() {
                   />
                   <div>
                     <h3 className="text-lg font-semibold text-white">{ticket.eventTitle}</h3>
-                    <p className="text-sm text-gray-400">{ticket.category}</p>
+                    <p className="text-sm text-gray-400">{ticket.categoryName}</p>
                     <p className="text-sm text-gray-500">{ticket.eventDate}</p>
                   </div>
                 </div>

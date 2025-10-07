@@ -16,11 +16,11 @@ export default function AgencyDashboard() {
   const { user, isAuthenticated, logout } = useAuthStore()
   const router = useRouter()
 
-  useEffect(() => {
-    if (isAuthenticated === false || (isAuthenticated && user && user.role !== "agency")) {
+    useEffect(() => {
+    if (!isAuthenticated || user?.role !== "agency") {
       router.push("/login")
     }
-  }, [isAuthenticated, user?.role, router])
+  }, [isAuthenticated, user, router])
 
   if (isAuthenticated === false || (isAuthenticated && user && user.role !== "agency")) {
     return null

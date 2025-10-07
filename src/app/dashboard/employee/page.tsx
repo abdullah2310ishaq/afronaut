@@ -16,11 +16,11 @@ export default function EmployeeDashboard() {
   const [scanning, setScanning] = useState(false)
   const [scanResult, setScanResult] = useState<{ success: boolean; message: string } | null>(null)
 
-  useEffect(() => {
-    if (isAuthenticated === false || (isAuthenticated && user && user.role !== "employee")) {
+    useEffect(() => {
+    if (!isAuthenticated || user?.role !== "employee") {
       router.push("/login")
     }
-  }, [isAuthenticated, user?.role, router])
+  }, [isAuthenticated, user, router])
 
   if (isAuthenticated === false || (isAuthenticated && user && user.role !== "employee")) {
     return null

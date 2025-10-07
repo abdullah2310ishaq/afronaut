@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { Header } from "@/components/common/header"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -39,7 +39,6 @@ export default function TicketDetailPage() {
   const ticket = mockTickets.find((t) => t.id === params.id)
 
   const [pin, setPin] = useState("")
-  const [showQR, setShowQR] = useState(false)
   const [isPinVerified, setIsPinVerified] = useState(false)
   const [transferEmail, setTransferEmail] = useState("")
   const [transferLoading, setTransferLoading] = useState(false)
@@ -47,7 +46,6 @@ export default function TicketDetailPage() {
   const [copied, setCopied] = useState(false)
   const [showFullScreenQR, setShowFullScreenQR] = useState(false)
   const [attempts, setAttempts] = useState(0)
-  const qrRef = useRef<HTMLDivElement>(null)
 
   if (!ticket) {
     return (
@@ -69,7 +67,7 @@ export default function TicketDetailPage() {
   const handlePinVerification = () => {
     if (pin === "1234") { // Demo PIN - in real app, this would be unique per ticket
       setIsPinVerified(true)
-      setShowQR(true)
+      setQrGenerated(true)
       setAttempts(0)
       toast({
         title: "PIN Verified ✓",

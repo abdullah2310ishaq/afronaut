@@ -1,5 +1,6 @@
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
+import { mockUsers, MOCK_PASSWORD } from "@/lib/mock-data"
 
 interface User {
   id: string
@@ -25,47 +26,17 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
 
       login: async (email: string, password: string) => {
-        // Mock authentication - check against mock users
-        const mockUsers = [
-          {
-            id: "1",
-            email: "admin@afronaut.com",
-            password: "password123",
-            name: "Admin User",
-            role: "admin" as const,
-          },
-          {
-            id: "2",
-            email: "agency@afronaut.com",
-            password: "password123",
-            name: "Event Masters",
-            role: "agency" as const,
-          },
-          {
-            id: "3",
-            email: "employee@afronaut.com",
-            password: "password123",
-            name: "John Scanner",
-            role: "employee" as const,
-          },
-          { id: "4", email: "user@afronaut.com", password: "password123", name: "Jane Doe", role: "user" as const },
-        ]
-
-        const user = mockUsers.find((u) => u.email === email && u.password === password)
-
+        // Find user in mock data  
+        const user = mockUsers.find((u) => u.email === email && password === MOCK_PASSWORD)
+        
         if (user) {
-          const { password: _, ...userWithoutPassword } = user
-          const mockToken = `mock-jwt-token-${user.id}`
-
           set({
-            user: userWithoutPassword,
-            token: mockToken,
+            user,
+            token: "mock-token",
             isAuthenticated: true,
           })
-
           return true
         }
-
         return false
       },
 
