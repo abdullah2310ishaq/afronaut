@@ -15,14 +15,25 @@ import {
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import { mockEvents, mockTickets } from "@/lib/mock-data"
 
-export default function AdminReportsPage() {
+export default function AgencyReportsPage() {
   const [from, setFrom] = useState("")
   const [to, setTo] = useState("")
 
-  const dailySales = useMemo(() => {
+  const byEvent = useMemo(() => {
+    const map = new Map<string, number>()
+    for (const t of mockTickets) {
+      const ev = mockEvents.find(e => e.id === t.eventId)
+      if (!ev) continue
+      map.set(ev.title, (map.get(ev.title) || 0) + t.price)
+    }
+    return Array.from(map.entries()).map(([title, amount]) => ({ title, amount }))
+  }, [])
+
+  const daily = useMemo(() => {
     const map = new Map<string, number>()
     for (const t of mockTickets) {
       const d = new Date(t.purchaseDate)
+
       const key = new Date(d.getFullYear(), d.getMonth(), d.getDate()).toISOString()
       map.set(key, (map.get(key) || 0) + t.price)
     }
@@ -32,18 +43,8 @@ export default function AdminReportsPage() {
     return arr.sort((a,b)=> new Date(a.date).getTime() - new Date(b.date).getTime())
   }, [from, to])
 
-  const topAgencies = useMemo(() => {
-    const revenueByAgency = new Map<string, number>()
-    for (const t of mockTickets) {
-      const ev = mockEvents.find(e => e.id === t.eventId)
-      if (!ev) continue
-      revenueByAgency.set(ev.agencyName, (revenueByAgency.get(ev.agencyName) || 0) + t.price)
-    }
-    return Array.from(revenueByAgency.entries()).sort((a,b)=>b[1]-a[1]).slice(0,5)
-  }, [])
-
   return (
-    <SidebarLayout role="admin" title="Reports & Analytics">
+    <SidebarLayout role="agency" title="Reports & Analytics">
       <div className="space-y-6">
         <Card className="border-white/10 bg-zinc-900/60 p-6">
           <div className="grid gap-4 sm:grid-cols-3">
@@ -63,12 +64,9 @@ export default function AdminReportsPage() {
 
         <div className="grid gap-6 lg:grid-cols-2">
           <Card className="border-white/10 bg-zinc-900/60 p-6">
-            <h2 className="text-white font-semibold mb-4">Total Sales Over Time</h2>
-            <ChartContainer
-              config={{ sales: { label: "Sales", color: "hsl(var(--primary))" } }}
-              className="h-64"
-            >
-              <AreaChart data={dailySales} margin={{ left: 12, right: 12 }}>
+            <h2 className="text-white font-semibold mb-4">Revenue Growth</h2>
+            <ChartContainer config={{ sales: { label: "Sales", color: "hsl(var(--primary))" } }} className="h-64">
+              <AreaChart data={daily} margin={{ left: 12, right: 12 }}>
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(v)=> new Date(v).toLocaleDateString()} />
                 <YAxis tickLine={false} axisLine={false} width={40} />
@@ -80,15 +78,15 @@ export default function AdminReportsPage() {
           </Card>
 
           <Card className="border-white/10 bg-zinc-900/60 p-6">
-            <h2 className="text-white font-semibold mb-4">Top Agencies (Revenue)</h2>
-            {topAgencies.length === 0 ? (
-              <div className="text-sm text-zinc-400">No data in selected range.</div>
+            <h2 className="text-white font-semibold mb-4">Total Tickets Sold per Event</h2>
+            {byEvent.length === 0 ? (
+              <div className="text-sm text-zinc-400">No data available.</div>
             ) : (
               <div className="space-y-2">
-                {topAgencies.map(([name, amount]) => (
-                  <div key={name} className="flex items-center justify-between border-b border-white/5 pb-2">
-                    <span className="text-white">{name}</span>
-                    <span className="text-zinc-400">${amount.toFixed(2)}</span>
+                {byEvent.map((e) => (
+                  <div key={e.title} className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <span className="text-white">{e.title}</span>
+                    <span className="text-zinc-400">${e.amount.toFixed(2)}</span>
                   </div>
                 ))}
               </div>

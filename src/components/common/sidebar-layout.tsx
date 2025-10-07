@@ -30,12 +30,15 @@ const NAV: Record<Role, Array<{ href: string; label: string }>> = {
   ],
   employee: [
     { href: "/employee/my-events", label: "My Events" },
-    { href: "/employee/scanner/evt-001", label: "Scanner" },
+    { href: "/employee/profile", label: "Profile" },
   ],
   user: [
-    { href: "/dashboard/user", label: "Dashboard" },
+    { href: "/user/dashboard", label: "Dashboard" },
     { href: "/user/my-tickets", label: "My Tickets" },
     { href: "/user/favorites", label: "Favorites" },
+    { href: "/user/wallet", label: "Wallet" },
+    { href: "/user/notifications", label: "Notifications" },
+    { href: "/user/support", label: "Support" },
     { href: "/user/profile", label: "Profile" },
   ],
 }
@@ -57,20 +60,18 @@ export function SidebarLayout({ role, title, children }: { role: Role; title?: s
             )
           })}
         </nav>
-        {role === "admin" && (
-          <div className="p-2 mt-4">
-            <button
-              onClick={() => {
-                const { logout } = useAuthStore.getState()
-                logout()
-                router.push("/")
-              }}
-              className="w-full text-left rounded-md px-3 py-2 text-sm text-red-400 hover:bg-red-500/10"
-            >
-              Logout
-            </button>
-          </div>
-        )}
+        <div className="p-2 mt-4">
+          <button
+            onClick={() => {
+              const { logout } = useAuthStore.getState()
+              logout()
+              router.push("/")
+            }}
+            className="w-full text-left rounded-md px-3 py-2 text-sm text-red-400 hover:bg-red-500/10"
+          >
+            Logout
+          </button>
+        </div>
       </aside>
       <div className="flex min-h-screen flex-col">
         <header className="border-b border-white/10 bg-zinc-950/60 backdrop-blur">

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { AuthLayout } from "@/components/auth/auth-layout"
 import { AuthCard } from "@/components/auth/auth-card"
 import { TextInput, PasswordInput } from "@/components/auth/inputs"
@@ -10,6 +11,7 @@ import { isValidEmail } from "@/lib/utils"
 import { useAuthStore } from "@/stores/auth-store"
 
 export default function AuthLoginPage() {
+  const router = useRouter()
   const login = useAuthStore(s => s.login)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -26,8 +28,11 @@ export default function AuthLoginPage() {
     const ok = await login(email, password)
     setLoading(false)
     if (!ok) return setError("Invalid credentials")
-    // No routing here per module scope; show transient success instead
     setSuccess(true)
+    const role = useAuthStore.getState().user?.role
+    const path = role === "admin" ? "/admin/dashboard" : role === "agency" ? "/agency/dashboard" : role === "employee" ? "/employee/dashboard" : "/user/dashboard"
+    // brief success state then redirect
+    setTimeout(() => router.push(path), 400)
   }
 
   return (
