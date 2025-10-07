@@ -1,9 +1,9 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import Link from "next/link"
+// removed unused Link import
 import { useParams } from "next/navigation"
-import { Header } from "@/components/common/header"
+import { SidebarLayout } from "@/components/common/sidebar-layout"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { getEventById, mockTickets } from "@/lib/mock-data"
@@ -30,19 +30,8 @@ export default function ScannerPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="container px-4 py-8 space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-white">Scanner</h1>
-            <p className="text-zinc-400">{event?.title}</p>
-          </div>
-          <Button asChild variant="outline" className="border-white/20">
-            <Link href="/employee/my-events">Back to My Events</Link>
-          </Button>
-        </div>
-
+    <SidebarLayout role="employee" title={event ? `Scanner — ${event.title}` : "Scanner"}>
+      <div className="space-y-6">
         <div className="grid gap-6 lg:grid-cols-2">
           <Card className="border-white/10 bg-zinc-900/60 p-6">
             <div className="aspect-video rounded-md bg-black/50 grid place-items-center text-zinc-500">
@@ -79,8 +68,8 @@ export default function ScannerPage() {
             )}
           </Card>
         </div>
-      </main>
-    </div>
+      </div>
+    </SidebarLayout>
   )
 }
 

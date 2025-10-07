@@ -17,10 +17,10 @@ export default function AgencyTicketsPage() {
     return mockTickets.filter(t => {
       const ev = eventsById.get(t.eventId)
       const matchQuery = !query || ev?.title.toLowerCase().includes(query.toLowerCase()) || t.userEmail.toLowerCase().includes(query.toLowerCase())
-      const matchStatus = tab === "active" ? t.status === "valid" : t.status !== "valid"
+      const matchStatus = tab === "active" ? t.status === "active" : t.status !== "active"
       return matchQuery && matchStatus
     })
-  }, [query, tab])
+  }, [query, tab, eventsById])
 
   return (
     <SidebarLayout role="agency" title="Tickets">
@@ -36,7 +36,7 @@ export default function AgencyTicketsPage() {
           </div>
         </div>
 
-        <Tabs value={tab} onValueChange={(v)=>setTab(v as any)}>
+        <Tabs value={tab} onValueChange={(v)=>setTab(v as "active" | "used")}>
           <TabsList>
             <TabsTrigger value="active">Active</TabsTrigger>
             <TabsTrigger value="used">Scanned / Used</TabsTrigger>

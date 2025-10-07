@@ -1,11 +1,11 @@
 "use client"
 
-import { Header } from "@/components/common/header"
+import Link from "next/link"
+import { SidebarLayout } from "@/components/common/sidebar-layout"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { TicketCard } from "@/components/tickets/ticket-card"
 import { mockTickets } from "@/lib/mock-data"
-import Link from "next/link"
 
 export default function UserDashboardPage() {
   const upcomingTickets = mockTickets.filter(t => t.status === "active")
@@ -13,9 +13,8 @@ export default function UserDashboardPage() {
   const firstTicket = upcomingTickets[0]
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="container px-4 py-8 space-y-8">
+    <SidebarLayout role="user" title="Dashboard">
+      <div className="space-y-8">
         <div className="flex flex-wrap gap-3">
           <Button asChild>
             <Link href="/user/my-tickets">My Tickets</Link>
@@ -62,8 +61,8 @@ export default function UserDashboardPage() {
             </div>
           )}
         </div>
-      </main>
-    </div>
+      </div>
+    </SidebarLayout>
   )
 }
 
