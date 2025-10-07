@@ -281,7 +281,6 @@ function ChartLegendContent({
   payload,
   verticalAlign = 'bottom',
   nameKey,
-  ...props
 }: Omit<React.ComponentProps<'div'>, 'payload'> & {
   payload?: ChartPayloadItem[]
   verticalAlign?: 'top' | 'middle' | 'bottom'
@@ -301,7 +300,6 @@ function ChartLegendContent({
         verticalAlign === 'top' ? 'pb-3' : 'pt-3',
         className,
       )}
-      {...props}
     >
       {payload.map((item: ChartPayloadItem, index: number) => {
         const key = `${nameKey || item.dataKey || 'value'}`

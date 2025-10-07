@@ -46,7 +46,7 @@ export default function AdminEmployeesPage() {
                 <tr key={emp.id} className="border-t border-white/5">
                   <td className="px-4 py-3 text-white">{emp.name}</td>
                   <td className="px-4 py-3 text-zinc-400">{emp.email}</td>
-                  <td className="px-4 py-3 text-zinc-400">{emp.companyInfo?.agencyName || "—"}</td>
+                  <td className="px-4 py-3 text-zinc-400">{emp.companyInfo?.companyName || "—"}</td>
                   <td className="px-4 py-3 text-zinc-400">Active</td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex justify-end gap-2">

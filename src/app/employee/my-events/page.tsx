@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Header } from "@/components/common/header"
+import { SidebarLayout } from "@/components/common/sidebar-layout"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { mockEmployees, mockEvents } from "@/lib/mock-data"
@@ -11,16 +11,8 @@ export default function EmployeeMyEventsPage() {
   const assigned = mockEvents.filter(e => employee.assignedEvents.includes(e.id))
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="container px-4 py-10 space-y-6">
-        <div className="flex items-end justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-white">My Events</h1>
-            <p className="text-zinc-400">Events assigned to you for scanning</p>
-          </div>
-        </div>
-
+    <SidebarLayout role="employee" title="My Events">
+      <div className="space-y-6">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {assigned.map(event => (
             <Card key={event.id} className="border-white/10 bg-zinc-900/60 p-5">
@@ -37,8 +29,8 @@ export default function EmployeeMyEventsPage() {
             </Card>
           ))}
         </div>
-      </main>
-    </div>
+      </div>
+    </SidebarLayout>
   )
 }
 

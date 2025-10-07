@@ -1,9 +1,12 @@
-import { Button, ButtonProps } from "@/components/ui/button"
+import { Button } from "@/components/ui/button"
+import type { ComponentProps, ReactNode } from "react"
 import { Loader2 } from "lucide-react"
 
-interface AuthButtonProps extends ButtonProps {
+type BaseButtonProps = ComponentProps<typeof Button>
+
+interface AuthButtonProps extends BaseButtonProps {
   loading?: boolean
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function AuthButton({ loading, children, disabled, ...props }: AuthButtonProps) {
