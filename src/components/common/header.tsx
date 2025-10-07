@@ -27,6 +27,21 @@ export function Header() {
     router.push("/")
   }
 
+  const dashboardPath = (role?: string) => {
+    switch (role) {
+      case "admin":
+        return "/admin/dashboard"
+      case "agency":
+        return "/agency/dashboard"
+      case "employee":
+        return "/employee/dashboard"
+      case "user":
+        return "/user/dashboard"
+      default:
+        return "/"
+    }
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
@@ -60,12 +75,22 @@ export function Header() {
               Events
             </Link>
             {isAuthenticated && user && (
-              <Link
-                href={`/dashboard/${user.role}`}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Dashboard
-              </Link>
+              <>
+                <Link
+                  href={dashboardPath(user.role)}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Dashboard
+                </Link>
+                {user.role === "agency" && (
+                  <>
+                    <Link href="/agency/events" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Events</Link>
+                    <Link href="/agency/event-builder" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Event Builder</Link>
+                    <Link href="/agency/employees" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Employees</Link>
+                    <Link href="/agency/statistics" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Statistics</Link>
+                  </>
+                )}
+              </>
             )}
           </nav>
         </div>
@@ -115,12 +140,12 @@ export function Header() {
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href={`/dashboard/${user.role}`}>Dashboard</Link>
+                    <Link href={dashboardPath(user.role)}>Dashboard</Link>
                   </DropdownMenuItem>
                   {user.role === "user" && (
                     <>
                       <DropdownMenuItem asChild>
-                        <Link href="/tickets">My Tickets</Link>
+                        <Link href="/user/my-tickets">My Tickets</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/favorites">Favorites</Link>
@@ -128,7 +153,7 @@ export function Header() {
                     </>
                   )}
                   <DropdownMenuItem asChild>
-                    <Link href="/profile">Profile</Link>
+                    <Link href="/user/profile">Profile</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout} className="text-destructive">
@@ -141,10 +166,10 @@ export function Header() {
           ) : (
             <div className="hidden md:flex items-center gap-3">
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/login">Login</Link>
+                <Link href="/auth/login">Login</Link>
               </Button>
               <Button size="sm" asChild>
-                <Link href="/register">Sign Up</Link>
+                <Link href="/auth/register">Sign Up</Link>
               </Button>
             </div>
           )}

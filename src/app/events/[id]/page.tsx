@@ -40,6 +40,15 @@ export default function EventDetailPage() {
 
   const totalTickets = Object.values(selectedCategories).reduce((sum, qty) => sum + qty, 0)
 
+  const handleCheckout = () => {
+    if (totalTickets === 0) return
+    const items = Object.entries(selectedCategories)
+      .map(([catId, qty]) => `${catId}:${qty}`)
+      .join(",")
+    const url = `/checkout?eventId=${encodeURIComponent(event.id)}&items=${encodeURIComponent(items)}`
+    router.push(url)
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -196,7 +205,7 @@ export default function EventDetailPage() {
                       </div>
                     </div>
 
-                    <Button className="w-full" size="lg">
+                    <Button className="w-full" size="lg" onClick={handleCheckout}>
                       Proceed to Checkout
                     </Button>
                   </>

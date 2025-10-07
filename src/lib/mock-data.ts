@@ -403,6 +403,8 @@ export const mockUsers: User[] = [
     },
     stats: {
       eventsCreated: 25,
+      eventsCount: 25,
+      isActive: 1,
       totalRevenue: 456789.23,
       activeEvents: 8,
       employeesManaged: 12
@@ -419,6 +421,61 @@ export const mockUsers: User[] = [
         dateHired: "2024-03-01T10:00:00Z"
       }
     ]
+  },
+  {
+    id: "agency-002",
+    name: "Tech Events Pro",
+    email: "agency2@afronaut.com",
+    role: "agency",
+    avatar: "/placeholder-logo.png",
+    phone: "+1-555-2002",
+    location: "San Francisco, CA",
+    dateJoined: "2024-05-10T10:00:00Z",
+    isVerified: true,
+    companyInfo: {
+      companyName: "Tech Events Pro Inc.",
+      businessLicense: "BL-222333444",
+      taxId: "TAX-222333444",
+      website: "https://techeventspro.com",
+      description: "Technology conferences and professional networking events."
+    },
+    stats: {
+      eventsCreated: 12,
+      eventsCount: 12,
+      isActive: 1,
+      totalRevenue: 789123.45,
+      activeEvents: 3,
+      employeesManaged: 6
+    }
+  },
+  {
+    id: "employee-001",
+    name: "John Scanner",
+    email: "employee@afronaut.com",
+    role: "employee",
+    avatar: "/placeholder-user.jpg",
+    phone: "+1-555-2222",
+    location: "Austin, TX",
+    dateJoined: "2024-03-01T10:00:00Z",
+    isVerified: true,
+    stats: {
+      eventsAssigned: 2,
+      scansToday: 0,
+    } as unknown as Record<string, number>
+  },
+  {
+    id: "admin-001",
+    name: "System Admin",
+    email: "admin@afronaut.com",
+    role: "admin",
+    avatar: "/placeholder-user.jpg",
+    phone: "+1-555-0000",
+    location: "Remote",
+    dateJoined: "2023-01-01T09:00:00Z",
+    isVerified: true,
+    stats: {
+      platformsManaged: 1,
+    } as unknown as Record<string, number>
   }
 ]
 
