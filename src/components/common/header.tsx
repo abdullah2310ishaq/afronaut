@@ -17,7 +17,7 @@ import { Badge } from "@/components/ui/badge"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { MobileMenu } from "@/components/common/mobile-menu"
 
-export function Header() {
+export function Header({ showLogo = true }: { showLogo?: boolean }) {
   const router = useRouter()
   const { user, isAuthenticated, logout } = useAuthStore()
   const { favorites } = useFavoritesStore()
@@ -46,34 +46,33 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <svg
-                className="h-5 w-5 text-primary-foreground"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2Z" />
-                <path d="m9 12 2 2 4-4" />
-              </svg>
-            </div>
-            <span className="text-xl font-bold">Afronaut Ticketing</span>
-          </Link>
+          {showLogo && (
+            <Link href="/" className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                <svg
+                  className="h-5 w-5 text-primary-foreground"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2Z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+              </div>
+              <span className="text-xl font-bold">Afronaut Ticketing</span>
+            </Link>
+          )}
 
           <nav className="hidden md:flex items-center gap-6">
-            <Link
-              href="/events"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Events
-            </Link>
+            <Link href="/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Home</Link>
+            <Link href="/#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Features</Link>
+            <Link href="/events" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Events</Link>
             {isAuthenticated && user && (
               <>
                 <Link
@@ -165,11 +164,11 @@ export function Header() {
             </div>
           ) : (
             <div className="hidden md:flex items-center gap-3">
-              <Button variant="ghost" size="sm" asChild>
+              <Button variant="outline" size="sm" asChild className="border-white/20">
                 <Link href="/auth/login">Login</Link>
               </Button>
               <Button size="sm" asChild>
-                <Link href="/auth/register">Sign Up</Link>
+                <Link href="/auth/register">Get Started</Link>
               </Button>
             </div>
           )}

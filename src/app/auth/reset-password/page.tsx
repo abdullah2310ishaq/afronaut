@@ -1,31 +1,55 @@
 "use client"
 
+import Link from "next/link"
 import { useState } from "react"
-import { Header } from "@/components/common/header"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { AuthLayout } from "@/components/auth/auth-layout"
+import { AuthCard } from "@/components/auth/auth-card"
+import { PasswordInput } from "@/components/auth/inputs"
+import { AuthButton } from "@/components/auth/auth-button"
 
 export default function ResetPasswordPage() {
   const [done, setDone] = useState(false)
+  const [password, setPassword] = useState("")
+  const [confirm, setConfirm] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  async function handleSet() {
+    setError("")
+    if (!password || !confirm) return setError("Please fill in all fields")
+    if (password !== confirm) return setError("Passwords do not match")
+    setLoading(true)
+    await new Promise(r => setTimeout(r, 600))
+    setLoading(false)
+    setDone(true)
+  }
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="container px-4 py-10 flex justify-center">
-        <Card className="border-white/10 bg-zinc-900/60 p-6 w-full max-w-md space-y-4">
-          <h1 className="text-2xl font-bold text-white">Reset Password</h1>
-          {!done ? (
-            <div className="grid gap-3">
-              <Input type="password" placeholder="New password" />
-              <Input type="password" placeholder="Confirm password" />
-              <Button onClick={()=>setDone(true)}>Set Password</Button>
+    <AuthLayout>
+      <AuthCard
+        title="Reset your password"
+        subtitle="Enter a new password for your account"
+        footer={
+          done ? (
+            <div className="text-sm">
+              <Link href="/auth/login" className="text-primary hover:underline">Go to Login</Link>
             </div>
-          ) : (
-            <p className="text-green-400">Password updated (demo).</p>
-          )}
-        </Card>
-      </main>
-    </div>
+          ) : null
+        }
+        width="sm"
+      >
+        {!done ? (
+          <div className="grid gap-3">
+            <PasswordInput placeholder="New password" value={password} onChange={e=>setPassword(e.currentTarget.value)} />
+            <PasswordInput placeholder="Confirm password" value={confirm} onChange={e=>setConfirm(e.currentTarget.value)} />
+            {error && <p className="text-sm text-red-400">{error}</p>}
+            <AuthButton loading={loading} onClick={handleSet}>Reset Password</AuthButton>
+          </div>
+        ) : (
+          <p className="text-green-400">Password updated successfully.</p>
+        )}
+      </AuthCard>
+    </AuthLayout>
   )
 }
 

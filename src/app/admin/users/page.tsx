@@ -4,7 +4,7 @@ import { SidebarLayout } from "@/components/common/sidebar-layout"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { mockUsers } from "@/lib/mock-data"
+import { mockUsers, mockTickets } from "@/lib/mock-data"
 import { useMemo, useState } from "react"
 
 export default function AdminUsersPage() {
@@ -13,6 +13,14 @@ export default function AdminUsersPage() {
     const q = query.toLowerCase()
     return mockUsers.filter(u => u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q))
   }, [query])
+
+  const ticketsByEmail = useMemo(() => {
+    const map = new Map<string, number>()
+    for (const t of mockTickets) {
+      map.set(t.userEmail, (map.get(t.userEmail) || 0) + 1)
+    }
+    return map
+  }, [])
 
   return (
     <SidebarLayout role="admin" title="Users">
@@ -28,12 +36,17 @@ export default function AdminUsersPage() {
         </div>
 
         <Card className="border-white/10 bg-zinc-900/60 p-0 overflow-hidden">
+          {users.length === 0 && (
+            <div className="p-8 text-center text-sm text-zinc-400">No users match your search.</div>
+          )}
           <table className="w-full text-sm">
             <thead className="bg-black/40 text-zinc-400">
               <tr>
                 <th className="px-4 py-3 text-left">Name</th>
                 <th className="px-4 py-3 text-left">Email</th>
                 <th className="px-4 py-3 text-left">Role</th>
+                <th className="px-4 py-3 text-left">Tickets Purchased</th>
+                <th className="px-4 py-3 text-left">Status</th>
                 <th className="px-4 py-3 text-left">Joined</th>
                 <th className="px-4 py-3"></th>
               </tr>
@@ -44,9 +57,16 @@ export default function AdminUsersPage() {
                   <td className="px-4 py-3 text-white">{u.name}</td>
                   <td className="px-4 py-3 text-zinc-400">{u.email}</td>
                   <td className="px-4 py-3 text-zinc-400 capitalize">{u.role}</td>
+                  <td className="px-4 py-3 text-zinc-400">{ticketsByEmail.get(u.email) || 0}</td>
+                  <td className="px-4 py-3">
+                    <span className="inline-flex items-center rounded-md border border-green-500/30 bg-green-500/10 px-2 py-1 text-xs text-green-400">Active</span>
+                  </td>
                   <td className="px-4 py-3 text-zinc-400">{new Date(u.dateJoined).toLocaleDateString()}</td>
                   <td className="px-4 py-3 text-right">
-                    <Button size="sm" variant="outline" className="border-white/20">View</Button>
+                    <div className="flex justify-end gap-2">
+                      <Button size="sm" variant="outline" className="border-white/20">View</Button>
+                      <Button size="sm" variant="destructive">Block</Button>
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -1,23 +1,20 @@
 "use client"
 
-import { Header } from "@/components/common/header"
+import { SidebarLayout } from "@/components/common/sidebar-layout"
 import { Card } from "@/components/ui/card"
 import { StatCard } from "@/components/ui/stat-card"
 import { mockEvents } from "@/lib/mock-data"
 import { Calendar, DollarSign, Ticket, TrendingUp } from "lucide-react"
 
 export default function AgencyDashboardPage() {
-  const myEvents = mockEvents // demo: all events as agency view
+  const myEvents = mockEvents
   const active = myEvents.filter(e => e.status === "active")
   const revenue = myEvents.reduce((s, e) => s + e.totalRevenue, 0)
   const sold = myEvents.reduce((s, e) => s + e.categories.reduce((a,c)=>a+c.soldTickets,0), 0)
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="container px-4 py-10 space-y-8">
-        <h1 className="text-3xl font-bold text-white">Agency Dashboard</h1>
-
+    <SidebarLayout role="agency" title="Dashboard">
+      <div className="space-y-8">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <StatCard title="Active Events" value={active.length.toString()} icon={Calendar} delay={0} />
           <StatCard title="Tickets Sold" value={sold.toLocaleString()} icon={Ticket} delay={0.1} />
@@ -51,8 +48,8 @@ export default function AgencyDashboardPage() {
           <h2 className="text-white font-semibold mb-4">Daily Sales (placeholder)</h2>
           <div className="h-48 rounded-md bg-black/40 grid place-items-center text-zinc-600">Chart placeholder</div>
         </Card>
-      </main>
-    </div>
+      </div>
+    </SidebarLayout>
   )
 }
 

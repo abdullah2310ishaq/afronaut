@@ -1,8 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { useAuthStore } from "@/stores/auth-store"
 
 type Role = "admin" | "agency" | "employee" | "user"
 
@@ -12,16 +13,20 @@ const NAV: Record<Role, Array<{ href: string; label: string }>> = {
     { href: "/admin/events", label: "Events" },
     { href: "/admin/agencies", label: "Agencies" },
     { href: "/admin/users", label: "Users" },
+    { href: "/admin/employees", label: "Employees" },
     { href: "/admin/financial", label: "Financial" },
     { href: "/admin/ticket-reports", label: "Ticket Reports" },
     { href: "/admin/settings", label: "Settings" },
+    { href: "/admin/notifications", label: "Notifications" },
   ],
   agency: [
     { href: "/agency/dashboard", label: "Dashboard" },
     { href: "/agency/events", label: "My Events" },
-    { href: "/agency/event-builder", label: "Event Builder" },
+    { href: "/agency/tickets", label: "Tickets" },
     { href: "/agency/employees", label: "Employees" },
-    { href: "/agency/statistics", label: "Statistics" },
+    { href: "/agency/reports", label: "Reports" },
+    { href: "/agency/settings", label: "Settings" },
+    { href: "/agency/notifications", label: "Notifications" },
   ],
   employee: [
     { href: "/employee/my-events", label: "My Events" },
@@ -37,6 +42,7 @@ const NAV: Record<Role, Array<{ href: string; label: string }>> = {
 
 export function SidebarLayout({ role, title, children }: { role: Role; title?: string; children: React.ReactNode }) {
   const pathname = usePathname()
+  const router = useRouter()
   const items = NAV[role]
 
   return (
@@ -51,6 +57,20 @@ export function SidebarLayout({ role, title, children }: { role: Role; title?: s
             )
           })}
         </nav>
+        {role === "admin" && (
+          <div className="p-2 mt-4">
+            <button
+              onClick={() => {
+                const { logout } = useAuthStore.getState()
+                logout()
+                router.push("/")
+              }}
+              className="w-full text-left rounded-md px-3 py-2 text-sm text-red-400 hover:bg-red-500/10"
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </aside>
       <div className="flex min-h-screen flex-col">
         <header className="border-b border-white/10 bg-zinc-950/60 backdrop-blur">

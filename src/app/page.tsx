@@ -7,17 +7,17 @@ import { Header } from "@/components/common/header"
 import { EventCard } from "@/components/events/event-card"
 import { GlobalSearch } from "@/components/ui/global-search"
 import { mockEvents } from "@/lib/mock-data"
-import { Calendar, Shield, Zap, ArrowRight, Sparkles } from "lucide-react"
+import { Calendar, Shield, Zap, ArrowRight, Sparkles, QrCode, BarChart3, Users, Smartphone } from "lucide-react"
 
 export default function HomePage() {
   const featuredEvents = mockEvents.filter((e) => e.status === "active").slice(0, 3)
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header showLogo={false} />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 md:py-32">
+      <section className="relative overflow-hidden py-20 md:py-32" id="hero">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-background" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(34,197,94,0.1),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(34,197,94,0.05),transparent_50%)]" />
@@ -40,15 +40,11 @@ export default function HomePage() {
             </motion.div>
 
             <h1 className="text-balance text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-              Your Gateway to{" "}
-              <span className="bg-gradient-to-r from-primary to-green-400 bg-clip-text text-transparent">
-                Unforgettable
-              </span>{" "}
-              Experiences
+              Effortless Digital Ticketing for Every Event
             </h1>
 
             <p className="text-balance text-xl text-zinc-400 md:text-2xl">
-              Book tickets for concerts, conferences, festivals, and more. Secure, fast, and hassle-free.
+              Create, manage, and validate tickets — all in one smart platform.
             </p>
 
             <motion.div
@@ -57,14 +53,14 @@ export default function HomePage() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="mx-auto flex max-w-2xl flex-col gap-3"
             >
-              <GlobalSearch 
-                placeholder="Search events, artists, venues..."
-                onSearch={(query) => {
-                  // Redirect to events page with search query
-                  window.location.href = `/events?search=${encodeURIComponent(query)}`
-                }}
-                className="w-full"
-              />
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button size="lg" asChild>
+                  <Link href="/auth/register">Start Now</Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild className="border-white/20 bg-zinc-900/50">
+                  <Link href="/events">Explore Events</Link>
+                </Button>
+              </div>
             </motion.div>
 
             <motion.div
@@ -96,45 +92,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="border-y border-white/10 py-20">
+      {/* How It Works */}
+      <section className="border-y border-white/10 py-20" id="how-it-works">
         <div className="container px-4">
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold">How It Works</h2>
+            <p className="text-zinc-400 mt-2">Three simple steps to launch and manage your events.</p>
+          </div>
           <div className="grid gap-8 md:grid-cols-3">
             {[
-              {
-                icon: Zap,
-                title: "Instant Booking",
-                description: "Book your tickets in seconds with our streamlined checkout process",
-                delay: 0,
-              },
-              {
-                icon: Shield,
-                title: "Secure Payments",
-                description: "Your transactions are protected with bank-level security",
-                delay: 0.1,
-              },
-              {
-                icon: Calendar,
-                title: "Easy Management",
-                description: "Access all your tickets in one place with QR codes",
-                delay: 0.2,
-              },
-            ].map((feature) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: feature.delay, duration: 0.5 }}
-                whileHover={{ y: -4 }}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900 to-black p-8 text-center"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              { icon: Calendar, title: "Create Event", description: "Agencies can list events in minutes." },
+              { icon: Zap, title: "Sell Tickets", description: "Online payments and instant QR codes." },
+              { icon: QrCode, title: "Scan & Validate", description: "Verify entry with mobile scanning." },
+            ].map((feature, i) => (
+              <motion.div key={feature.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.5 }} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900 to-black p-8 text-center">
                 <div className="relative space-y-4">
-                  <div className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/20 transition-transform duration-300 group-hover:scale-110">
+                  <div className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/20">
                     <feature.icon className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-white">{feature.title}</h3>
+                  <p className="text-sm leading-relaxed text-zinc-400">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-20" id="features">
+        <div className="container px-4">
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold">Powerful Features</h2>
+            <p className="text-zinc-400 mt-2">Everything you need to run events at scale.</p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              { icon: Shield, title: "Secure payments", description: "Industry-grade security and fraud protection." },
+              { icon: BarChart3, title: "Analytics dashboard", description: "Track sales, revenue, and engagement." },
+              { icon: Users, title: "Role-based access", description: "Admin, Agency, Employee and User roles." },
+              { icon: Smartphone, title: "Mobile validation", description: "Scan QR tickets on-site." },
+              { icon: Zap, title: "Real-time sales", description: "Live updates and instant confirmations." },
+              { icon: Calendar, title: "Event insights", description: "Smart summaries and forecasts." },
+            ].map((feature, i) => (
+              <motion.div key={feature.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05, duration: 0.5 }} whileHover={{ y: -4 }} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-zinc-900 to-black p-8">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="relative space-y-4">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                    <feature.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold">{feature.title}</h3>
                   <p className="text-sm leading-relaxed text-zinc-400">{feature.description}</p>
                 </div>
               </motion.div>
